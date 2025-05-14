@@ -1,0 +1,185 @@
+body {
+    font-family: 'Arial', sans-serif;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    background-color: #f0f8ff;
+    margin: 0;
+    padding: 20px;
+    height: 100vh;
+    box-sizing: border-box;
+}
+
+h1 {
+    color: #4682b4;
+    margin-bottom: 10px;
+}
+
+.score-container {
+    font-size: 24px;
+    margin-bottom: 20px;
+    display: flex;
+}
+
+.score-text {
+    margin-right: 5px;
+}
+
+.game-area {
+    position: relative;
+    width: 600px;
+    height: 400px;
+    background-color: #e6e6fa;
+    border: 3px solid #4682b4;
+    border-radius: 10px;
+    overflow: hidden;
+    cursor: pointer; /* Добавлено для лучшего UX */
+}
+
+.cat {
+    position: absolute;
+    width: 60px;
+    height: 60px;
+    background-color: #ff6b6b;
+    border-radius: 50% 50% 50% 50% / 60% 60% 40% 40%;
+    display: flex;
+    justify-content: center;
+    align-items: flex-start;
+    transition: all 0.1s ease;
+    cursor: pointer;
+    z-index: 20; /* Важный z-index */
+}
+
+.cat::before, .cat::after {
+    content: "";
+    position: absolute;
+    top: -15px;
+    width: 20px;
+    height: 30px;
+    background-color: #ff6b6b;
+    border-radius: 50% 50% 0 0;
+}
+
+.cat::before {
+    left: 5px;
+    transform: rotate(-15deg);
+}
+
+.cat::after {
+    right: 5px;
+    transform: rotate(15deg);
+}
+
+.cat-face {
+    width: 40px;
+    height: 20px;
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+    margin-top: 20px;
+}
+
+.cat-eye {
+    width: 8px;
+    height: 12px;
+    background-color: black;
+    border-radius: 50%;
+}
+
+.cat-nose {
+    width: 8px;
+    height: 5px;
+    background-color: #ff4081;
+    border-radius: 50%;
+    margin-top: 5px;
+}
+
+/* Создаём 9 позиций для кота - оставлено для совместимости */
+#pos1:checked ~ .game-area .cat { top: 20px; left: 20px; }
+#pos2:checked ~ .game-area .cat { top: 20px; left: 270px; }
+#pos3:checked ~ .game-area .cat { top: 20px; left: 520px; }
+#pos4:checked ~ .game-area .cat { top: 170px; left: 20px; }
+#pos5:checked ~ .game-area .cat { top: 170px; left: 270px; }
+#pos6:checked ~ .game-area .cat { top: 170px; left: 520px; }
+#pos7:checked ~ .game-area .cat { top: 320px; left: 20px; }
+#pos8:checked ~ .game-area .cat { top: 320px; left: 270px; }
+#pos9:checked ~ .game-area .cat { top: 320px; left: 520px; }
+
+/* Скрываем радио кнопки */
+input[type="radio"] {
+    display: none;
+}
+
+/* Эффект при наведении */
+.cat:hover {
+    transform: scale(1.1);
+}
+
+/* Инструкции */
+.instructions {
+    margin-top: 20px;
+    text-align: center;
+    color: #555;
+}
+
+/* Стили для модального окна */
+.modal {
+    display: none;
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.7);
+    z-index: 100;
+    justify-content: center;
+    align-items: center;
+}
+
+.modal-content {
+    background-color: white;
+    padding: 30px;
+    border-radius: 10px;
+    text-align: center;
+    max-width: 400px;
+}
+
+.modal h2 {
+    color: #4682b4;
+    margin-top: 0;
+}
+
+.modal p {
+    font-size: 18px;
+    margin: 20px 0;
+}
+
+.emoji {
+    font-size: 50px;
+    margin: 10px 0;
+    display: block;
+}
+
+.modal button {
+    background-color: #4682b4;
+    color: white;
+    border: none;
+    padding: 10px 20px;
+    border-radius: 5px;
+    font-size: 16px;
+    cursor: pointer;
+    transition: background-color 0.3s;
+}
+
+.modal button:hover {
+    background-color: #3a6d99;
+}
+
+/* Стили для показа поражения/победы */
+.win-message {
+    color: #2e8b57;
+}
+
+.lose-message {
+    color: #cd5c5c;
+}

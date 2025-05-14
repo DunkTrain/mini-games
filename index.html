@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <title>Поймай кота - CSS игра</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <!-- Радио кнопки для позиций -->
+    <input type="radio" name="position" id="pos1">
+    <input type="radio" name="position" id="pos2">
+    <input type="radio" name="position" id="pos3">
+    <input type="radio" name="position" id="pos4">
+    <input type="radio" name="position" id="pos5" checked>
+    <input type="radio" name="position" id="pos6">
+    <input type="radio" name="position" id="pos7">
+    <input type="radio" name="position" id="pos8">
+    <input type="radio" name="position" id="pos9">
+    
+    <h1>Поймай кота!</h1>
+    <div class="score-container">
+        <span class="score-text">Счет: </span>
+        <span class="score-value">0</span>
+    </div>
+    
+    <div class="game-area">
+        <label class="cat">
+            <div class="cat-face">
+                <div class="cat-eye"></div>
+                <div class="cat-nose"></div>
+                <div class="cat-eye"></div>
+            </div>
+        </label>
+    </div>
+    
+    <div class="instructions">
+        <p>Нажимайте на кота, чтобы поймать его. Каждый клик добавляет очко! Промах отнимает 5 очков.</p>
+        <p>Цель: набрать 30 очков. Если счет уйдет в минус - вы проиграли.</p>
+    </div>
+    
+    <!-- Модальное окно для победы/поражения -->
+    <div class="modal" id="resultModal">
+        <div class="modal-content">
+            <h2 id="resultTitle">Результат</h2>
+            <div id="resultEmoji" class="emoji"></div>
+            <p id="resultMessage">Текст результата</p>
+            <button id="restartButton">Играть снова</button>
+        </div>
+    </div>
+
+    <script src="script.js"></script>
+</body>
+</html>
