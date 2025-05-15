@@ -2,49 +2,107 @@
 <html lang="ru">
 <head>
     <meta charset="UTF-8">
-    <title>Поймай кота - CSS игра</title>
+    <title>Поймай смайлик - PunkMaster Edition</title>
     <link rel="stylesheet" href="style.css">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta property="og:title" content="Поймай смайлик - PunkMaster Edition">
+    <meta property="og:description" content="Проверь свою реакцию и стань ПанкМастером в этой увлекательной игре!">
 </head>
 <body>
-    <!-- Радио кнопки для позиций -->
-    <input type="radio" name="position" id="pos1">
-    <input type="radio" name="position" id="pos2">
-    <input type="radio" name="position" id="pos3">
-    <input type="radio" name="position" id="pos4">
-    <input type="radio" name="position" id="pos5" checked>
-    <input type="radio" name="position" id="pos6">
-    <input type="radio" name="position" id="pos7">
-    <input type="radio" name="position" id="pos8">
-    <input type="radio" name="position" id="pos9">
-    
-    <h1>Поймай кота!</h1>
-    <div class="score-container">
-        <span class="score-text">Счет: </span>
-        <span class="score-value">0</span>
-    </div>
-    
-    <div class="game-area">
-        <label class="cat">
-            <div class="cat-face">
-                <div class="cat-eye"></div>
-                <div class="cat-nose"></div>
-                <div class="cat-eye"></div>
+    <div class="container">
+        <h1>Поймай смайлик!</h1>
+        
+        <div class="rank-display">
+            <span class="rank-text">Ранг: </span>
+            <span class="rank-value">Нет ранга</span>
+            <span class="rank-icon">👶</span>
+        </div>
+        
+        <div class="controls">
+            <div class="score-container">
+                <span class="score-text">Счет: </span>
+                <span class="score-value">0</span>
             </div>
-        </label>
+            
+            <div class="time-container">
+                <span class="time-text">Время: </span>
+                <span class="time-value">60</span>
+            </div>
+            
+            <button id="startButton" class="control-button">Начать игру</button>
+            <button id="pauseButton" class="control-button" disabled>Пауза</button>
+        </div>
+        
+        <div class="game-area">
+            <div class="emoji-target">😎</div>
+        </div>
+        
+        <div class="difficulty-container">
+            <span>Сложность: </span>
+            <select id="difficulty">
+                <option value="1000" data-time="60">Легко (60 сек)</option>
+                <option value="750" data-time="45" selected>Средне (45 сек)</option>
+                <option value="500" data-time="35">Сложно (35 сек)</option>
+                <option value="300" data-time="30">Эксперт (30 сек)</option>
+            </select>
+        </div>
+        
+        <div class="instructions">
+            <p>Нажмите "Начать игру" и попытайтесь поймать движущийся смайлик! Каждый клик добавляет очко, промах отнимает 5 очков.</p>
+            <p>Время зависит от выбранной сложности. Зарабатывайте очки, чтобы получить ранги от Бронзы до ПанкМастера!</p>
+        </div>
+        
+        <div class="ranks-info">
+            <h3>Система рангов:</h3>
+            <div class="ranks-grid">
+                <div class="rank-item rank-bronze">Бронза: 0-4 очков</div>
+                <div class="rank-item rank-silver">Серебро: 5-9 очков</div>
+                <div class="rank-item rank-gold">Золото: 10-14 очков</div>
+                <div class="rank-item rank-platinum">Платина: 15-19 очков</div>
+                <div class="rank-item rank-diamond">Алмаз: 20-24 очков</div>
+                <div class="rank-item rank-master">Мастер: 25-29 очков</div>
+                <div class="rank-item rank-punkmaster">ПанкМастер: 30+ очков</div>
+            </div>
+        </div>
     </div>
     
-    <div class="instructions">
-        <p>Нажимайте на кота, чтобы поймать его. Каждый клик добавляет очко! Промах отнимает 5 очков.</p>
-        <p>Цель: набрать 30 очков. Если счет уйдет в минус - вы проиграли.</p>
-    </div>
-    
-    <!-- Модальное окно для победы/поражения -->
+    <!-- Модальное окно для результата -->
     <div class="modal" id="resultModal">
         <div class="modal-content">
             <h2 id="resultTitle">Результат</h2>
             <div id="resultEmoji" class="emoji"></div>
+            <div id="rankResult" class="rank-result">
+                <span id="finalRankIcon" class="final-rank-icon">🥉</span>
+                <span id="finalRankName" class="final-rank-name">Бронза</span>
+            </div>
             <p id="resultMessage">Текст результата</p>
-            <button id="restartButton">Играть снова</button>
+            <div class="result-stats">
+                <div class="stat-item">
+                    <span class="stat-label">Счет:</span>
+                    <span id="finalScore" class="stat-value">0</span>
+                </div>
+                <div class="stat-item">
+                    <span class="stat-label">Сложность:</span>
+                    <span id="finalDifficulty" class="stat-value">Средне</span>
+                </div>
+                <div class="stat-item">
+                    <span class="stat-label">Время:</span>
+                    <span id="timeUsed" class="stat-value">0 сек</span>
+                </div>
+            </div>
+            <div class="result-buttons">
+                <button id="restartButton">Играть снова</button>
+                <button id="lowerDifficultyButton">Понизить сложность</button>
+                <button id="increaseDifficultyButton">Повысить сложность</button>
+            </div>
+            <div class="share-buttons">
+                <button id="shareButton" class="share-button">
+                    <span class="share-icon">📤</span> Поделиться
+                </button>
+                <button id="telegramShareButton" class="share-button telegram-button">
+                    <span class="share-icon">✈️</span> Telegram
+                </button>
+            </div>
         </div>
     </div>
 
