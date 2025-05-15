@@ -1,118 +1,173 @@
 body {
     font-family: 'Arial', sans-serif;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
     background-color: #f0f8ff;
     margin: 0;
     padding: 20px;
-    height: 100vh;
+    min-height: 100vh;
     box-sizing: border-box;
+}
+
+.container {
+    max-width: 800px;
+    margin: 0 auto;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
 }
 
 h1 {
     color: #4682b4;
-    margin-bottom: 10px;
+    margin-bottom: 15px;
+    text-shadow: 2px 2px 4px rgba(0,0,0,0.1);
+    text-align: center;
 }
 
-.score-container {
+.rank-display {
+    display: flex;
+    align-items: center;
+    justify-content: center;
     font-size: 24px;
+    font-weight: bold;
+    margin-bottom: 15px;
+    padding: 8px 15px;
+    border-radius: 10px;
+    box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+    width: 100%;
+    max-width: 600px;
+    transition: all 0.3s ease;
+}
+
+/* Стили для отображения ранга */
+.rank-initial {
+    background-color: #e6e6fa;
+    color: #333;
+}
+
+.rank-бронза {
+    background-color: #cd7f32;
+    color: white;
+}
+
+.rank-серебро {
+    background-color: #c0c0c0;
+    color: #333;
+}
+
+.rank-золото {
+    background-color: #ffd700;
+    color: #333;
+}
+
+.rank-платина {
+    background-color: #e5e4e2;
+    color: #333;
+}
+
+.rank-алмаз {
+    background-color: #b9f2ff;
+    color: #333;
+}
+
+.rank-мастер {
+    background-color: #9966cc;
+    color: white;
+}
+
+.rank-панкмастер {
+    background-color: #ff4081;
+    color: white;
+}
+
+.rank-icon {
+    font-size: 28px;
+    margin-left: 10px;
+}
+
+.controls {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    width: 100%;
+    max-width: 600px;
     margin-bottom: 20px;
+}
+
+.score-container, .time-container {
+    font-size: 24px;
     display: flex;
 }
 
-.score-text {
+.score-text, .time-text {
     margin-right: 5px;
+}
+
+.control-button {
+    background-color: #4682b4;
+    color: white;
+    border: none;
+    padding: 10px 20px;
+    border-radius: 5px;
+    font-size: 16px;
+    cursor: pointer;
+    transition: background-color 0.3s;
+}
+
+.control-button:hover:not(:disabled) {
+    background-color: #3a6d99;
+}
+
+.control-button:disabled {
+    background-color: #b0c4de;
+    cursor: not-allowed;
 }
 
 .game-area {
     position: relative;
-    width: 600px;
+    width: 100%;
+    max-width: 600px;
     height: 400px;
     background-color: #e6e6fa;
     border: 3px solid #4682b4;
     border-radius: 10px;
     overflow: hidden;
-    cursor: pointer; /* Добавлено для лучшего UX */
+    cursor: crosshair; /* Курсор-прицел */
+    margin: 0 auto;
 }
 
-.cat {
+.emoji-target {
     position: absolute;
     width: 60px;
     height: 60px;
-    background-color: #ff6b6b;
-    border-radius: 50% 50% 50% 50% / 60% 60% 40% 40%;
     display: flex;
     justify-content: center;
-    align-items: flex-start;
-    transition: all 0.1s ease;
-    cursor: pointer;
-    z-index: 20; /* Важный z-index */
-}
-
-.cat::before, .cat::after {
-    content: "";
-    position: absolute;
-    top: -15px;
-    width: 20px;
-    height: 30px;
-    background-color: #ff6b6b;
-    border-radius: 50% 50% 0 0;
-}
-
-.cat::before {
-    left: 5px;
-    transform: rotate(-15deg);
-}
-
-.cat::after {
-    right: 5px;
-    transform: rotate(15deg);
-}
-
-.cat-face {
-    width: 40px;
-    height: 20px;
-    display: flex;
-    justify-content: space-around;
     align-items: center;
-    margin-top: 20px;
+    font-size: 40px;
+    cursor: crosshair; /* Курсор-прицел */
+    user-select: none; /* Предотвращение выделения текста */
+    z-index: 20;
+    top: 170px;
+    left: 270px;
+    transition: all 0.1s ease;
+    filter: drop-shadow(0 0 5px rgba(0,0,0,0.3));
 }
 
-.cat-eye {
-    width: 8px;
-    height: 12px;
-    background-color: black;
-    border-radius: 50%;
-}
-
-.cat-nose {
-    width: 8px;
-    height: 5px;
-    background-color: #ff4081;
-    border-radius: 50%;
-    margin-top: 5px;
-}
-
-/* Создаём 9 позиций для кота - оставлено для совместимости */
-#pos1:checked ~ .game-area .cat { top: 20px; left: 20px; }
-#pos2:checked ~ .game-area .cat { top: 20px; left: 270px; }
-#pos3:checked ~ .game-area .cat { top: 20px; left: 520px; }
-#pos4:checked ~ .game-area .cat { top: 170px; left: 20px; }
-#pos5:checked ~ .game-area .cat { top: 170px; left: 270px; }
-#pos6:checked ~ .game-area .cat { top: 170px; left: 520px; }
-#pos7:checked ~ .game-area .cat { top: 320px; left: 20px; }
-#pos8:checked ~ .game-area .cat { top: 320px; left: 270px; }
-#pos9:checked ~ .game-area .cat { top: 320px; left: 520px; }
-
-/* Скрываем радио кнопки */
-input[type="radio"] {
-    display: none;
-}
-
-/* Эффект при наведении */
-.cat:hover {
+.emoji-target:hover {
     transform: scale(1.1);
+}
+
+.difficulty-container {
+    margin-top: 15px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 100%;
+}
+
+.difficulty-container select {
+    margin-left: 10px;
+    padding: 5px;
+    border-radius: 5px;
+    border: 1px solid #4682b4;
 }
 
 /* Инструкции */
@@ -120,6 +175,42 @@ input[type="radio"] {
     margin-top: 20px;
     text-align: center;
     color: #555;
+    max-width: 600px;
+    width: 100%;
+}
+
+/* Информация о рангах */
+.ranks-info {
+    margin-top: 20px;
+    padding: 15px;
+    background-color: #e6e6fa;
+    border-radius: 10px;
+    max-width: 600px;
+    width: 100%;
+    box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+}
+
+.ranks-info h3 {
+    margin-top: 0;
+    color: #4682b4;
+    text-align: center;
+    margin-bottom: 15px;
+}
+
+.ranks-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+    gap: 10px;
+    justify-content: center;
+}
+
+.rank-item {
+    padding: 8px 12px;
+    border-radius: 5px;
+    font-weight: bold;
+    text-align: center;
+    margin: 5px;
+    box-shadow: 0 1px 3px rgba(0,0,0,0.1);
 }
 
 /* Стили для модального окна */
@@ -141,7 +232,9 @@ input[type="radio"] {
     padding: 30px;
     border-radius: 10px;
     text-align: center;
-    max-width: 400px;
+    max-width: 450px;
+    width: 90%;
+    box-shadow: 0 5px 15px rgba(0,0,0,0.3);
 }
 
 .modal h2 {
@@ -160,26 +253,178 @@ input[type="radio"] {
     display: block;
 }
 
+.rank-result {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    margin: 15px 0;
+}
+
+.final-rank-icon {
+    font-size: 60px;
+    margin-bottom: 10px;
+}
+
+.final-rank-name {
+    font-size: 24px;
+    font-weight: bold;
+}
+
+.result-stats {
+    display: flex;
+    flex-direction: column;
+    gap: 5px;
+    margin: 15px 0;
+    padding: 10px;
+    background-color: #f5f5f5;
+    border-radius: 8px;
+}
+
+.stat-item {
+    display: flex;
+    justify-content: space-between;
+    font-size: 16px;
+}
+
+.stat-label {
+    font-weight: bold;
+    color: #555;
+}
+
+.stat-value {
+    color: #4682b4;
+    font-weight: bold;
+}
+
+.result-buttons {
+    display: flex;
+    justify-content: center;
+    gap: 10px;
+    flex-wrap: wrap;
+    margin-bottom: 15px;
+}
+
+.share-buttons {
+    display: flex;
+    justify-content: center;
+    gap: 10px;
+    margin-top: 15px;
+    flex-wrap: wrap;
+}
+
+.share-button {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 8px;
+    background-color: #4682b4;
+    color: white;
+    border: none;
+    padding: 10px 15px;
+    border-radius: 5px;
+    font-size: 16px;
+    cursor: pointer;
+    transition: all 0.3s;
+    flex-grow: 1;
+    max-width: 180px;
+}
+
+.share-button:hover {
+    background-color: #3a6d99;
+    transform: translateY(-2px);
+}
+
+.telegram-button {
+    background-color: #0088cc;
+}
+
+.telegram-button:hover {
+    background-color: #0077b5;
+}
+
+.share-icon {
+    font-size: 18px;
+}
+
 .modal button {
     background-color: #4682b4;
     color: white;
     border: none;
-    padding: 10px 20px;
+    padding: 10px 15px;
     border-radius: 5px;
     font-size: 16px;
     cursor: pointer;
     transition: background-color 0.3s;
+    flex-grow: 1;
 }
 
-.modal button:hover {
+.modal button:hover:not(:disabled) {
     background-color: #3a6d99;
 }
 
-/* Стили для показа поражения/победы */
-.win-message {
-    color: #2e8b57;
+.modal button:disabled {
+    background-color: #b0c4de;
+    cursor: not-allowed;
 }
 
-.lose-message {
-    color: #cd5c5c;
+/* Стили рангов с улучшенной контрастностью */
+.rank-bronze {
+    color: white;
+    background-color: #cd7f32;
+}
+
+.rank-silver {
+    color: #333;
+    background-color: #c0c0c0;
+}
+
+.rank-gold {
+    color: #333;
+    background-color: #ffd700;
+}
+
+.rank-platinum {
+    color: #333;
+    background-color: #e5e4e2;
+}
+
+.rank-diamond {
+    color: #333;
+    background-color: #b9f2ff;
+}
+
+.rank-master {
+    color: white;
+    background-color: #9966cc;
+}
+
+.rank-punkmaster {
+    color: white;
+    background-color: #ff4081;
+}
+
+/* Медиа-запросы для адаптивности */
+@media (max-width: 650px) {
+    .controls {
+        flex-direction: column;
+        gap: 10px;
+    }
+    
+    .game-area {
+        height: 350px;
+    }
+    
+    .ranks-grid {
+        grid-template-columns: 1fr;
+    }
+    
+    .result-buttons, .share-buttons {
+        flex-direction: column;
+        align-items: center;
+    }
+    
+    .modal-content {
+        padding: 20px;
+        max-width: 90%;
+    }
 }
